@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Dish } from '../Shared/dish';
-import { DishService } from '../services/dish.service';
+import { Dish } from '../3. Shared/dish';
+import { DishService } from '../2. services/dish.service';
 
 @Component({
   selector: 'app-menu',

@@ -8,7 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AppRoutingModule } from './app-routing/app-routing.module';
+import { AppRoutingModule } from './1. app-routing/app-routing.module';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
@@ -21,7 +21,8 @@ import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
-import { DishService } from './services/dish.service';
+import { DishService } from './2. services/dish.service';
+import { PromotionService } from './2. services/promotion.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { DishService } from './services/dish.service';
     FontAwesomeModule
   ],
   providers: [
-    DishService
+    DishService,
+    PromotionService
   ],
   bootstrap: [AppComponent]
 })
