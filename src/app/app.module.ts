@@ -23,6 +23,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { DishService } from './2. services/dish.service';
 import { PromotionService } from './2. services/promotion.service';
+import { LeaderService } from './2. services/leader.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PromotionService } from './2. services/promotion.service';
   ],
   providers: [
     DishService,
-    PromotionService
+    PromotionService,
+    LeaderService
   ],
   bootstrap: [AppComponent]
 })
