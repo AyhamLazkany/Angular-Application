@@ -33,4 +33,66 @@
             </div>
         </div>
     </div>
+
+    <div fxFlex="65" fxFlexOffset='20px'>
+        <h3>Send Us Your FeedBack</h3>
+        <form [formGroup]="feedbackForm" #fform='ngForm' (ngSubmit)="onSubmit()" novalidate>
+            <p>
+                <mat-form-field fxFlex="30">
+                    <input matInput formControlName="firstname" placeholder="FirstName" type="text" required>
+                    <mat-error *ngIf="feedbackForm.get('firstname')?.hasError('required') && feedbackForm.get('firstname')?.touched">
+                        First Name is required
+                    </mat-error>
+                </mat-form-field>
+                <span fxFlex="5"></span>
+                <mat-form-field fxFlex="30">
+                    <input matInput formControlName="lastname" placeholder="LastName" type="text" required>
+                    <mat-error *ngIf="feedbackForm.get('lastname')?.hasError('required') && feedbackForm.get('lastname')?.touched">
+                        Last Name is required
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field fxFlex="30">
+                    <input matInput formControlName="email" placeholder="Email" type="email" required>
+                    <mat-error *ngIf="feedbackForm.get('email')?.hasError('required') && feedbackForm.get('email')?.touched">
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+                <span fxFlex="5"></span>
+                <mat-form-field fxFlex="30">
+                    <input matInput formControlName="telnum" placeholder="Phone Number" type="tel" required>
+                    <mat-error *ngIf="feedbackForm.get('telnum')?.hasError('required') && feedbackForm.get('telnum')?.touched">
+                        Phone number is required
+                    </mat-error>
+                </mat-form-field>
+            </p>
+            <div>
+                <table fxFlex="65">
+                    <td>
+                        <mat-slide-toggle formControlName="contact">
+                            My we contact
+                        </mat-slide-toggle>
+                    </td>
+                    <td>
+                        <mat-select placeholder="How?" formControlName="contype">
+                            <mat-option *ngFor="let type of conType" [value]="type">{{ type }}</mat-option>
+                        </mat-select>
+                    </td>
+                </table>
+            </div>
+            <p>
+                <mat-form-field fxFlex="65">
+                    <textarea matInput rows="5" placeholder="Your Comment" formControlName="message"></textarea>
+                </mat-form-field>
+            </p>
+            <p>
+                <button mat-button [disabled]="feedbackForm.invalid" type="submit" style="font-size: large;" class="background-primary text-floral-white">Send</button>
+                <span fxFlex="54"></span>
+                <button mat-button type="reset" style="font-size: large;"  class="background-light text-floral-white">Reset</button>
+            </p>
+        </form>
+    </div>
+    <div fxFlex="35"></div>
+
 </div>
