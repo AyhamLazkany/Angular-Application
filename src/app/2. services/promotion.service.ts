@@ -10,13 +10,26 @@ export class PromotionService {
   promotion!:Promotion;
 
   constructor() { }
-  getPromotions(): Promotion[] {
-    return Promotions;
+  // Simulate server latency with 2 second delay
+  getPromotions(): Promise<Promotion[]> {
+    return new Promise(
+      resolve => {
+        setTimeout(() => resolve(Promotions) , 2000)
+      }
+    );
   }
-  getPromotion(id: string): Promotion {
-    return Promotions.filter((Promotion) => ( Promotion.id === id ))[0];
+  getPromotion(id: string): Promise<Promotion> {
+    return new Promise (
+      resolve => {
+        setTimeout(() => resolve(Promotions.filter((Promotion) => ( Promotion.id === id ))[0]) , 2000)
+      }
+    );
   }
-  getFeaturedPromotion(): Promotion {
-    return Promotions.filter((Promotion) => Promotion.featured )[0];
+  getFeaturedPromotion(): Promise<Promotion> {
+    return new Promise(
+      resolve => {
+        setTimeout(() => resolve(Promotions.filter((Promotion) => Promotion.featured )[0]) ,  2000)
+      }
+    );
   }
 }
