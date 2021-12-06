@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" 
-    fxLayputGap="10px" fxLayputGap.xs="0" fxLayoutAlign.gt-md="space-around center">
-    <div fxFlex="40">
-        <mat-card *ngIf="theDish">
+    fxLayputGap="10px" fxLayputGap.xs="0" fxLayoutAlign.gt-xs="space-around center">
+    <div fxFlex="40" *ngIf="theDish">
+        <mat-card>
             <mat-card-header>
                 <mat-card-title>{{theDish.name | uppercase}}</mat-card-title>
             </mat-card-header>
@@ -10,21 +10,66 @@
                 <p> {{theDish.description}} </p>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button fxFlex="36" (click)="goBack()">BACK</button>
-                <button mat-button fxFlex="32">LIKE</button>
-                <button mat-button fxFlex="32">DESLIKE</button>
+                <button mat-button fxFlex="20" [routerLink]="['/Menu/Dishdetail' , Prev]">
+                    <span class="fa fa-chevron-left fa-lg"></span>
+                </button>
+                <button mat-button fxFlex="20" (click)="goBack()">BACK</button>
+                <button mat-button fxFlex="20">LIKE</button>
+                <button mat-button fxFlex="20">DESLIKE</button>
+                <button mat-button fxFlex="20" [routerLink]="['/Menu/Dishdetail' , Next]">
+                    <span class="fa fa-chevron-right fa-lg"></span>
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>
-    <div fxFlex="40">
-        <mat-list *ngIf="theDish">
-        <h1>Comments</h1>
-            <mat-list-item *ngFor="let comment of theDish.comments">
-                <h5 matLine>{{comment.comment}}</h5>
-                <p  matLine>Rating: {{comment.rating}} Stars</p>
-                <p  matLine>--{{comment.author}} {{comment.date | date}}</p>
-            </mat-list-item>
-        </mat-list>
+    <div fxLayout="column" fxFlex="40" *ngIf="theDish">
+        <div fxFlex>
+            <mat-list>
+            <h1>Comments</h1>
+                <mat-list-item *ngFor="let comment of theDish.comments">
+                    <h5 matLine>{{comment.comment}}</h5>
+                    <p  matLine>Rating: {{comment.rating}} Stars</p>
+                    <p  matLine>--{{comment.author}} {{comment.date | date}}</p>
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div fxFlex *ngIf="theDish">
+            <h3>Provide us in your comment</h3>
+            <div *ngIf="commentForm.valid">
+                <mat-list>
+                    <mat-list-item>
+                        <h5 matLine>{{comment.comment}}</h5>
+                        <p  matLine>Rating: {{comment.rating}} Stars</p>
+                        <p  matLine>--{{comment.author}}</p>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <form [formGroup]="commentForm" #cform='ngForm' (ngSubmit)="onSubmit()" novalidate>
+                <p>
+                    <mat-form-field fxFlex="75">
+                        <input matInput formControlName="author" placeholder="Name" type="text" required>
+                        <mat-error *ngIf="formErrors.author">
+                            {{formErrors.author}}
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-slider formControlName="rating" fxFlex="75" min="1" max="5" thumbLabel step="0.5" value="5"></mat-slider>
+                </p>
+                <p>
+                    <mat-form-field fxFlex="75">
+                        <textarea matInput formControlName="comment" placeholder="Your Comment" rows="5" required></textarea>
+                        <mat-error *ngIf="formErrors.comment">
+                            {{formErrors.comment}}
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <button mat-button [disabled]="commentForm.invalid" type="submit" style="font-size: large;"
+                     class="background-primary text-floral-white">Send</button>
+                </p>
+            </form>
+        </div>
     </div>
     <div fxFlex [hidden]="theDish">
         <mat-spinner></mat-spinner>
