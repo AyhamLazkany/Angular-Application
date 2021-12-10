@@ -76,9 +76,8 @@ export class DishdetailComponent implements OnInit {
       if(Ffield && Ffield.dirty && !Ffield.valid) {
         let errM = this.validationMessages[field];
         for(let er in Ffield.errors) {
-          if(Ffield.errors.hasOwnProperty(er)) {
-            this.formErrors[field] += errM[er] + " ";
-          }
+          if(Ffield.errors.hasOwnProperty(er)) 
+          { this.formErrors[field] += errM[er] + " "; }
         }
       }
     }
