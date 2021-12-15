@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
 import { Promotion } from '../3. Shared/promotion';
-import { Promotions } from '../3. Shared/promotions';
-import { of , Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { baseurl } from '../3. Shared/baseurl';
+import { map , catchError } from 'rxjs/operators';
+import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +13,19 @@ export class PromotionService {
 
   promotion!:Promotion;
 
-  constructor() { }
-  // Simulate server latency with 2 second delay
+  constructor(private http:HttpClient,
+    private PrcsHttpMsgSrv: ProcessHTTPMsgService ) { }
   getPromotions(): Observable<Promotion[]> {
-    return of(Promotions).pipe(delay(2000));
+    return this.http.get<Promotion[]>(baseurl + 'promotions').
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
   }
   getPromotion(id: string): Observable<Promotion> {
-    return of(Promotions.filter((Promotion) => ( Promotion.id === id ))[0]).pipe(delay(2000));
+    return this.http.get<Promotion>(baseurl + 'promotions' + id).
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
   }
   getFeaturedPromotion(): Observable<Promotion> {
-    return of(Promotions.filter((Promotion) => Promotion.featured )[0]).pipe(delay(2000));
+    return this.http.get<Promotion[]>(baseurl + 'promotions?featured=true').
+    pipe(map(promotion => promotion[0])).
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
   }
 }
