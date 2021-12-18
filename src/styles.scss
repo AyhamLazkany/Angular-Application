@@ -10,6 +10,13 @@ body {
     margin: 20px;
     display: flex;
 }
+.highlight {
+  cursor: pointer;
+  background-color: rgba(#D1C4E9, 0.5);
+  transition: 0.5s;
+  border: 1px solid #9575CD;
+  transform: scale(1.01);
+}
 
 $lt-gray: #ddd;
 $background-dark: #512DA8;

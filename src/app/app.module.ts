@@ -39,6 +39,7 @@ import { LeaderService } from './2. services/leader.service';
 import { ProcessHTTPMsgService } from './2. services/process-httpmsg.service';
 import { LoginComponent } from './login/login.component';
 import { baseurl } from './3. Shared/baseurl';
+import { HighlightDirective } from './4. directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { baseurl } from './3. Shared/baseurl';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
