@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseurl } from '../3. Shared/baseurl';
-import { map , catchError } from 'rxjs/operators';
+import { map , catchError, delay } from 'rxjs/operators';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 @Injectable({
@@ -17,16 +17,16 @@ export class DishService {
     private PrcsHttpMsgSrv: ProcessHTTPMsgService ) {}
   getDishes(): Observable<Dish[]> {
     return this.http.get<Dish[]>(baseurl + 'dishes').
-    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError),delay(1000));
   }
   getDish(id: string): Observable<Dish> {
     return this.http.get<Dish>(baseurl + 'dishes/' + id).
-    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError),delay(1000));
   }
   getFeaturedDish(): Observable<Dish> {
     return this.http.get<Dish[]>(baseurl + 'dishes?featured=true').
     pipe(map(dishes => dishes[0])).
-    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError),delay(1000));
   }
   getDishIDs(): Observable<string[] | any> {
     return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id))).

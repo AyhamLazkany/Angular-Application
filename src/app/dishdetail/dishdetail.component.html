@@ -1,6 +1,6 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" 
     fxLayputGap="10px" fxLayputGap.xs="0" fxLayoutAlign.gt-xs="space-around center">
-    <div fxFlex="40" *ngIf="theDish">
+    <div fxFlex="40" *ngIf="theDish" [@visibility]='visibility' [@expand]>
         <mat-card>
             <mat-card-header>
                 <mat-card-title>{{theDish.name | uppercase}}</mat-card-title>
@@ -22,7 +22,7 @@
             </mat-card-actions>
         </mat-card>
     </div>
-    <div fxLayout="column" fxFlex="40" *ngIf="theDish">
+    <div fxLayout="column" fxFlex="40" *ngIf="theDish" [@visibility]='visibility' [@expand]>
         <div fxFlex>
             <mat-list>
             <h1>Comments</h1>

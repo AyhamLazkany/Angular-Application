@@ -1,16 +1,25 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Dish } from '../3. Shared/dish';
 import { Comment } from '../3. Shared/comment';
+import { visibility, expand } from '../5. animations/app.animation';
 import { DishService } from '../2. services/dish.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
-import { FormBuilder , FormGroup , Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  host: {
+    'style': 'display: block;'
+  },
+  animations: [
+    visibility(),
+    expand()
+  ]
 })
 export class DishdetailComponent implements OnInit {
   @ViewChild('cform') commentFormDirective: any;
@@ -22,6 +31,7 @@ export class DishdetailComponent implements OnInit {
   DishIDs!: string [];
   Prev!: string;
   Next!: string;
+  visibility: string = 'shown';
   formErrors : any = {
     author : '',
     comment : ''
@@ -49,8 +59,8 @@ export class DishdetailComponent implements OnInit {
   ngOnInit(): void {
     this.dishService.getDishIDs().subscribe(dishIDs => this.DishIDs = dishIDs,
       errmsg => this.errMsg = <any>errmsg);
-    this.route.params.pipe(switchMap(params => this.dishService.getDish(params['id'])))
-    .subscribe( dish => { this.theDish = dish; this.copyDish = dish; this.setPrevNext(dish.id);}); 
+    this.route.params.pipe(switchMap(params => {this.visibility='hidden'; return this.dishService.getDish(params['id']);}))
+    .subscribe( dish => { this.theDish = dish; this.copyDish = dish; this.setPrevNext(dish.id); this.visibility='shown'; }); 
   }
   goBack(): void {
     this.location.back();
