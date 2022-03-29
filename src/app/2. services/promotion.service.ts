@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { baseurl } from '../3. Shared/baseurl';
-import { map , catchError, delay } from 'rxjs/operators';
+import { map , catchError } from 'rxjs/operators';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 @Injectable({
@@ -17,15 +17,15 @@ export class PromotionService {
     private PrcsHttpMsgSrv: ProcessHTTPMsgService ) { }
   getPromotions(): Observable<Promotion[]> {
     return this.http.get<Promotion[]>(baseurl + 'promotions').
-    pipe(catchError(this.PrcsHttpMsgSrv.handleError),delay(1000));
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
   }
   getPromotion(id: string): Observable<Promotion> {
     return this.http.get<Promotion>(baseurl + 'promotions' + id).
-    pipe(catchError(this.PrcsHttpMsgSrv.handleError),delay(1000));
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
   }
   getFeaturedPromotion(): Observable<Promotion> {
     return this.http.get<Promotion[]>(baseurl + 'promotions?featured=true').
     pipe(map(promotion => promotion[0])).
-    pipe(catchError(this.PrcsHttpMsgSrv.handleError),delay(1000));
+    pipe(catchError(this.PrcsHttpMsgSrv.handleError));
   }
 }

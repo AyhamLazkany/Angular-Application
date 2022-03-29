@@ -8,6 +8,7 @@ import { throwError } from 'rxjs';
 export class ProcessHTTPMsgService {
 
   constructor() { }
+  
   public handleError(err: HttpErrorResponse | any) {
     let errMsg;
     if(err.error instanceof ErrorEvent) {

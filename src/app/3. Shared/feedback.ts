@@ -1,6 +1,6 @@
 export class Feedback {
     firstname!:string;
-    lasname!:string;
+    lastname!:string;
     telnum!:number;
     email!:string;
     contact!:boolean;
